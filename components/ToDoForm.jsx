@@ -10,15 +10,34 @@ import {
     Button
   } from 'react-native';
 
-function ToDoForm(props) {
+function ToDoForm({ addTask }) {
+
+  const [taskText, setTaskText] = React.useState('');
+
+  const handleChangeText = (taskText) => {
+    setTaskText(taskText);
+  }
+
+  const handlePress = () => {
+    addTask();
+  };
+
+  // clear the input field after adding a task
+  const addTask = (taskText) => {
+    addTask(taskText);
+    setTaskText('');
+  }
+
     return (
         <>
             <View style={styles.form}>
                 <TextInput
                 style={styles.input}
                 placeholder="Add a new task..."
+                onChangeText={handleChangeText}
+                value={taskText}
                 />
-                <Button title="Add" />
+                <Button title="Add Task" onPress={handlePress} />
             </View>
         </>
     );

@@ -10,7 +10,19 @@ import {
     Button
   } from 'react-native';
 
-function ToDoList({ items }) {
+function ToDoList({ tasks }) {
+
+  return (
+    <ScrollView>
+      {items.map((task, index) => (
+        <Pressable key={index}>
+          <View style={[styles.task]}>
+            <Text style={styles.taskText}>{task}</Text>
+          </View>
+        </Pressable>
+      ))}
+    </ScrollView>
+  );
 
   // Same function using a for loop
   //
@@ -33,20 +45,6 @@ function ToDoList({ items }) {
   //     {renderedItems}
   //   </ScrollView>
   // );
-
-  return (
-    <ScrollView>
-      {items.map((value, index) => {
-        return (
-          <Pressable key={index}>
-            <View style={[styles.task]}>
-              <Text style={styles.taskText}>{value}</Text>
-            </View>
-          </Pressable>
-        );
-      })}
-    </ScrollView>
-  );
 
     // Old version of hard coded list
     //

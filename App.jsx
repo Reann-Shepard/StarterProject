@@ -12,16 +12,24 @@ import ToDoForm from './components/ToDoForm';
 // ********************************************** //
 
 function App() {
-  const [items, setItems] = useState([
+  const [tasks, setTasks] = React.useState([
     'Do laundry',
     'Go to gym',
     'Walk dog'
   ]);
 
+  const handleAddTask = (taskText) => {
+    // make sure the task is not empty
+    // make sure the task is not already in the list
+    if (taskText && !tasks.includes(taskText)) {
+      setTasks([...tasks, taskText]);
+    }
+  }
+
   return (
     <SafeAreaView>
       <ToDoList items = {items} />
-      <ToDoForm />
+      <ToDoForm addTask={handleAddTask}/>
     </SafeAreaView>
   );
 }
