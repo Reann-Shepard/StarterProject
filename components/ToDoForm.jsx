@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, Component } from 'react';
 import {
     SafeAreaView,
     StyleSheet,
@@ -12,21 +12,17 @@ import {
 
 function ToDoForm({ addTask }) {
 
-  const [taskText, setTaskText] = React.useState('');
+  const [taskText, setTaskText] = useState('');
 
-  const handleChangeText = (taskText) => {
-    setTaskText(taskText);
+  const handleChangeTaskText = (task) => {
+    setTaskText(task);
   }
 
   const handlePress = () => {
-    addTask();
-  };
-
-  // clear the input field after adding a task
-  const addTask = (taskText) => {
     addTask(taskText);
+    // clear the input field after adding a task
     setTaskText('');
-  }
+  };
 
     return (
         <>
@@ -34,7 +30,7 @@ function ToDoForm({ addTask }) {
                 <TextInput
                 style={styles.input}
                 placeholder="Add a new task..."
-                onChangeText={handleChangeText}
+                onChangeText={handleChangeTaskText}
                 value={taskText}
                 />
                 <Button title="Add Task" onPress={handlePress} />
