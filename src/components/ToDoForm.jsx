@@ -11,8 +11,31 @@ import {
   } from 'react-native';
 
 function ToDoForm({ addTask }) {
-
   const [taskText, setTaskText] = useState('');
+
+  // Create a state variable to hold the tasks
+  const [tasks, setTasks] = useState([]);
+
+  // Use useEffect hook to fetch tasks from tasks.json in the data folder
+  const tasksCall = async () => {
+    // retrieve the tasks from the tasks.json file
+    const response = await fetch('data/tasks.json');
+
+    // Get the response from the api call
+    const json = await response.json();
+
+    // Get the tasks from the json
+    const { tasks } = json;
+
+    // Set the tasks state variable to the tasks
+    setTasks(tasks);
+  };
+
+  React.useEffect(() => {
+    tasksCall().then(() => {
+      // Called when the api call finishes
+    });
+  });
 
   const handleChangeTaskText = (task) => {
     setTaskText(task);
@@ -24,6 +47,16 @@ function ToDoForm({ addTask }) {
     setTaskText('');
   };
 
+  // Implement a function (e.g., handleAddTask) in the "TodoForm" component to randomly
+  // select a task from the fetched tasks when the user clicks the "Generate Random Task" button.
+  // The selected task should be added to the input field.
+  const handleAddTask = () => {
+    // get a random task from the tasks
+    const randomTask = tasks[Math.floor(Math.random() * tasks.length)];
+    // set the task text to the random task
+    setTaskText(randomTask);
+  }
+
     return (
         <>
             <View style={styles.form}>
@@ -34,6 +67,7 @@ function ToDoForm({ addTask }) {
                 value={taskText}
                 />
                 <Button title="Add Task" onPress={handlePress} />
+                <Button title="Generate Random Task" onPress={handleAddTask} />
             </View>
         </>
     );
